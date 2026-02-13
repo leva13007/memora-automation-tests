@@ -1,5 +1,6 @@
 package dev.memora.ui.h1;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.microsoft.playwright.Browser;
@@ -35,6 +36,7 @@ public class TC_MC_0029_UI_H1_Mobile_LightTheme_Test {
     String fontWeightDesignToken = "--font-weight-bold";
     String fontColorDesignToken = "--color-text";
 
+    @Tag("regression")
     @Test
     public void ExecutionTest() {
         try (Playwright playwright = Playwright.create()) {

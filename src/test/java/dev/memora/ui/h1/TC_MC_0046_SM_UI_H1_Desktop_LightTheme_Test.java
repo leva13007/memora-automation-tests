@@ -1,5 +1,6 @@
 package dev.memora.ui.h1;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.microsoft.playwright.Browser;
@@ -24,6 +25,7 @@ public class TC_MC_0046_SM_UI_H1_Desktop_LightTheme_Test {
     int width = 1280;
     int height = 480;
 
+    @Tag("smoke")
     @Test
     public void ExecutionTest() {
         try (Playwright playwright = Playwright.create()) {
