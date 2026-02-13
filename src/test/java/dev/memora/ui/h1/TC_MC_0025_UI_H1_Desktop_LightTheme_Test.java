@@ -9,11 +9,13 @@ import com.microsoft.playwright.Playwright;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 import dev.memora.cssStyleAssertions.CssStyleAssertions;
+import dev.memora.domAssertion.DomAssertion;
 
 public class TC_MC_0025_UI_H1_Desktop_LightTheme_Test {
 
     String dataTestId = "test_h1";
     String theme = "light";
+     String tagName = "h1";
 
     String hostURL = "https://leva13007.github.io/memora-cards-storybook/";
     String iframe = "iframe.html?globals=";
@@ -48,6 +50,8 @@ public class TC_MC_0025_UI_H1_Desktop_LightTheme_Test {
 
             // Step #3
             assertThat(h1).isVisible();
+
+            DomAssertion.tagName(tagName, h1);
 
             CssStyleAssertions.fontFamily(fontFamily, h1);
             CssStyleAssertions.fontSize(fontSize, h1);

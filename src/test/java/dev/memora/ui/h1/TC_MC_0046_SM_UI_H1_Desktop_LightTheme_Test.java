@@ -8,10 +8,9 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-import dev.memora.cssStyleAssertions.CssStyleAssertions;
 import dev.memora.domAssertion.DomAssertion;
 
-public class TC_MC_0027_UI_H1_Tablet_LightTheme_Test {
+public class TC_MC_0046_SM_UI_H1_Desktop_LightTheme_Test {
 
     String dataTestId = "test_h1";
     String theme = "light";
@@ -22,18 +21,8 @@ public class TC_MC_0027_UI_H1_Tablet_LightTheme_Test {
     String element = "&id=ui-atoms-h1--default&viewMode=story";
     String themeAttr = "&globals=theme:" + theme;
     String args = "&args=data-testid:" + dataTestId;
-    int width = 1024;
+    int width = 1280;
     int height = 480;
-    String textColor = "#0f172a";
-
-    String fontFamily = "Inter";
-    String fontSize = "28px";
-    String fontWeight = "700";
-    String lineHeight = "normal";
-
-    String fontSizeDesignToken = "--font-size-h-1";
-    String fontWeightDesignToken = "--font-weight-bold";
-    String fontColorDesignToken = "--color-text";
 
     @Test
     public void ExecutionTest() {
@@ -52,16 +41,6 @@ public class TC_MC_0027_UI_H1_Tablet_LightTheme_Test {
             assertThat(h1).isVisible();
 
             DomAssertion.tagName(tagName, h1);
-
-            CssStyleAssertions.fontFamily(fontFamily, h1);
-            CssStyleAssertions.fontSize(fontSize, h1);
-            CssStyleAssertions.fontWeight(fontWeight, h1);
-            CssStyleAssertions.lineHeight(lineHeight, h1);
-            CssStyleAssertions.color(textColor, h1);
-            CssStyleAssertions.cssVar(fontSizeDesignToken, "fontSize", h1);
-            CssStyleAssertions.cssVar(fontWeightDesignToken, "fontWeight", h1);
-            CssStyleAssertions.cssVar(fontColorDesignToken, "color", h1);
-
 
             // page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("example.png")));
             // TODO wehere and how to store the screenshots? Pass/Fail + date
