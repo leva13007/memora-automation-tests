@@ -9,24 +9,22 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
+import dev.memora.config.TestEnvironment;
+import dev.memora.config.Theme;
 import dev.memora.cssStyleAssertions.CssStyleAssertions;
 import dev.memora.domAssertion.DomAssertion;
+import dev.memora.storybook.Components;
+import dev.memora.storybook.StorybookPage;
 
 public class TC_MC_0025_UI_H1_Desktop_LightTheme_Test {
 
+    Components component = Components.H1;
+    Theme theme = Theme.LIGHT;
+    String device = "Desktop";
+    
     String dataTestId = "test_h1";
-    String theme = "light";
-     String tagName = "h1";
 
-    String hostURL = "https://leva13007.github.io/memora-cards-storybook/";
-    String iframe = "iframe.html?globals=";
-    String element = "&id=ui-atoms-h1--default&viewMode=story";
-    String themeAttr = "&globals=theme:" + theme;
-    String args = "&args=data-testid:" + dataTestId;
-    int width = 1280;
-    int height = 480;
     String textColor = "#0f172a";
-
     String fontFamily = "Inter";
     String fontSize = "32px";
     String fontWeight = "700";
@@ -42,10 +40,10 @@ public class TC_MC_0025_UI_H1_Desktop_LightTheme_Test {
         try (Playwright playwright = Playwright.create()) {
             Browser browser = playwright.chromium().launch();
             Page page = browser.newPage();
-            page.setViewportSize(width, height);
+            page.setViewportSize(TestEnvironment.DESKTOP_WIDTH_MIN, TestEnvironment.DESKTOP_HEIGHT);
 
             // Step #1
-            page.navigate(hostURL + iframe + element + themeAttr + args);
+            page.navigate(StorybookPage.getURL(component, theme, dataTestId));
 
             // Step #2
             Locator h1 = page.getByTestId(dataTestId);
@@ -53,6 +51,7 @@ public class TC_MC_0025_UI_H1_Desktop_LightTheme_Test {
             // Step #3
             assertThat(h1).isVisible();
 
+            String tagName = component.name().toLowerCase();
             DomAssertion.tagName(tagName, h1);
 
             CssStyleAssertions.fontFamily(fontFamily, h1);
@@ -71,3 +70,6 @@ public class TC_MC_0025_UI_H1_Desktop_LightTheme_Test {
         }
     }
 }
+
+
+// TODO craete and move consts to the config Classes!
