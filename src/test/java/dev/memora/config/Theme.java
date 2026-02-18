@@ -1,16 +1,15 @@
 package dev.memora.config;
 
 public enum Theme {
-  LIGHT("light"),
-  DARK("dark");
+    LIGHT("light"),
+    DARK("dark");
 
-  private String desc;
+    private final String value;
+    private Theme(String value) {
+        this.value = value;
+    }
 
-  private Theme(String description){
-    this.desc = description;
-  }
-
-  public String getDescription() {
-        return desc;
+    public String value() {
+        return value;
     }
 }

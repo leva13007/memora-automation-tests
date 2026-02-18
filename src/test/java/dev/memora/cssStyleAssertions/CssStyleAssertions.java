@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.microsoft.playwright.Locator;
 
 import dev.memora.css.CssColorParser;
+import dev.memora.css.CssTokens;
 
 public final class CssStyleAssertions {
 
@@ -45,10 +46,10 @@ public final class CssStyleAssertions {
         assertEquals(textColor, hexColor, "Descktop H1 color should be '" + textColor + "'");
     }
     
-    public static void cssVar(String designToken, String styleName, Locator locator) {
+    public static void ComponentHasCssToken(CssTokens cssToken, Locator locator) {
         String className = locator.getAttribute("class");
 
-            String fontSizeCSSVar = locator.evaluate(String.format("""
+            String fontSizeComponentHasCssToken = locator.evaluate(String.format("""
                 () => {
                     try {
                         for (const sheet of document.styleSheets) {
@@ -63,8 +64,8 @@ public final class CssStyleAssertions {
                     }
                     return "";
                 }
-            """, className, styleName)
+            """, className, cssToken.cssProperty())
             ).toString();
-            assertTrue(fontSizeCSSVar.contains(designToken), "Design token should be: '"+ designToken + "' but got " + fontSizeCSSVar);
+            assertTrue(fontSizeComponentHasCssToken.contains(cssToken.value()), "Design token should be: '"+ cssToken.value() + "' but got " + fontSizeComponentHasCssToken);
     }
 }

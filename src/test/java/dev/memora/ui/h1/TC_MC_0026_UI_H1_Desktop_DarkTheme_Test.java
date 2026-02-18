@@ -9,32 +9,22 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
+import dev.memora.config.Theme;
+import dev.memora.config.Viewport;
+import dev.memora.css.CssGeneral;
+import dev.memora.css.CssThemeValues;
+import dev.memora.css.CssTokens;
+import dev.memora.css.CssViewportValues;
 import dev.memora.cssStyleAssertions.CssStyleAssertions;
 import dev.memora.domAssertion.DomAssertion;
+import dev.memora.storybook.ComponentAtoms;
+import dev.memora.storybook.StorybookPage;
 
 public class TC_MC_0026_UI_H1_Desktop_DarkTheme_Test {
 
-    String dataTestId = "test_h1";
-    String theme = "dark";
-     String tagName = "h1";
-
-    String hostURL = "https://leva13007.github.io/memora-cards-storybook/";
-    String iframe = "iframe.html?globals=";
-    String element = "&id=ui-atoms-h1--default&viewMode=story";
-    String themeAttr = "&globals=theme:" + theme;
-    String args = "&args=data-testid:" + dataTestId;
-    int width = 1280;
-    int height = 480;
-    String textColor = "#f5f7fb";
-
-    String fontFamily = "Inter";
-    String fontSize = "32px";
-    String fontWeight = "700";
-    String lineHeight = "normal";
-
-    String fontSizeDesignToken = "--font-size-h-1";
-    String fontWeightDesignToken = "--font-weight-bold";
-    String fontColorDesignToken = "--color-text";
+    ComponentAtoms component = ComponentAtoms.H1;
+    Theme theme = Theme.DARK;
+    Viewport viewport = Viewport.DESKTOP;
 
     @Tag("regression")
     @Test
@@ -42,32 +32,27 @@ public class TC_MC_0026_UI_H1_Desktop_DarkTheme_Test {
         try (Playwright playwright = Playwright.create()) {
             Browser browser = playwright.chromium().launch();
             Page page = browser.newPage();
-            page.setViewportSize(width, height);
+            page.setViewportSize(Viewport.DESKTOP.width(), Viewport.DESKTOP.height());
 
             // Step #1
-            page.navigate(hostURL + iframe + element + themeAttr + args);
+            page.navigate(StorybookPage.getURL(component, theme));
 
             // Step #2
-            Locator h1 = page.getByTestId(dataTestId);
+            Locator locator = page.getByTestId(component.dataTestId());
 
             // Step #3
-            assertThat(h1).isVisible();
+            assertThat(locator).isVisible();
 
-            DomAssertion.tagName(tagName, h1);
+            DomAssertion.tagName(component.tag(), locator);
 
-            CssStyleAssertions.fontFamily(fontFamily, h1);
-            CssStyleAssertions.fontSize(fontSize, h1);
-            CssStyleAssertions.fontWeight(fontWeight, h1);
-            CssStyleAssertions.lineHeight(lineHeight, h1);
-            CssStyleAssertions.color(textColor, h1);
-            CssStyleAssertions.cssVar(fontSizeDesignToken, "fontSize", h1);
-            CssStyleAssertions.cssVar(fontWeightDesignToken, "fontWeight", h1);
-            CssStyleAssertions.cssVar(fontColorDesignToken, "color", h1);
-
-
-            // page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("example.png")));
-            // TODO wehere and how to store the screenshots? Pass/Fail + date
-            // @Tag()
+            CssStyleAssertions.fontFamily(CssGeneral.FONT_FAMILY_PRIMIRY.value(), locator);
+            CssStyleAssertions.fontSize(CssViewportValues.FONT_SIZE_H1.valuePX(viewport), locator);
+            CssStyleAssertions.fontWeight(CssGeneral.FONT_WEIGHT_BOLD.value(), locator);
+            CssStyleAssertions.lineHeight(CssGeneral.FONT_LINE_HEIGHT.value(), locator);
+            CssStyleAssertions.color(CssThemeValues.COLOR_TEXT.value(theme), locator);
+            CssStyleAssertions.ComponentHasCssToken(CssTokens.FONT_SIZE_H1, locator);
+            CssStyleAssertions.ComponentHasCssToken(CssTokens.FONT_WEIGHT_BOLD, locator);
+            CssStyleAssertions.ComponentHasCssToken(CssTokens.COLOR_TEXT, locator);
         }
     }
 }
