@@ -17,13 +17,13 @@ public enum CssViewportValues{
   public String valuePX(Viewport viewport) {
     switch (viewport) {
         case DESKTOP -> {
-            return ((int) this.desktop * 16) + "px";
+            return ((int) (this.desktop * 16)) + "px";
           }
         case TABLET -> {
-            return ((int) this.tablet * 16) + "px";
+            return ((int) (this.tablet * 16)) + "px";
           }
         case MOBILE -> {
-            return ((int) this.mobile * 16) + "px";
+            return ((int) (this.mobile * 16)) + "px";
           }
         default -> throw new AssertionError("Wrong viewport value");
     }

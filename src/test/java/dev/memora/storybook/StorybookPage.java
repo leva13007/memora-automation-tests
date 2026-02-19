@@ -5,7 +5,7 @@ import dev.memora.config.Theme;
 public final class StorybookPage {
 
     private static String BASE_URL = "https://leva13007.github.io/memora-cards-storybook/";
-    private static String iframe = "iframe.html?globals=";
+    private static String IFRAME = "iframe.html?";
 
     private static String getDataTestId(String dataTestId) {
         return dataTestId != null ? "&args=data-testid:" + dataTestId : "";
@@ -13,7 +13,7 @@ public final class StorybookPage {
 
     public static String getURL(ComponentAtoms component, Theme theme) {
         return StorybookPage.BASE_URL
-        + StorybookPage.iframe
+        + StorybookPage.IFRAME
         + "&viewMode=story"
         + "&id=" + component.storybookId()
         + "&globals=theme:" + theme.value()

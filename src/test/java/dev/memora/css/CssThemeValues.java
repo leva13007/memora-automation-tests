@@ -3,7 +3,7 @@ package dev.memora.css;
 import dev.memora.config.Theme;
 
 public enum CssThemeValues{
-  COLOR_TEXT("#0f172a", "#e5e7eb");
+  COLOR_TEXT("#0f172a", "#f5f7fb");
 
   final String light;
   final String dark;
